@@ -1,4 +1,5 @@
 const btnConvertir=document.getElementById('bottonCovertir');
+const textError= document.getElementById('error');
 let arrayModenaValores=[];
 let canvaChart;
 
@@ -9,8 +10,9 @@ async function getMoneda(){
     
     return data;
   }
-  catch (error){  
-   console.log('Se produjo el error a leer la api : ' + error.message);
+  catch (error){
+    textError.innerHTML='Se produjo un error, en la consola más información';  
+    console.log('Se produjo el error a leer la api : ' + error.message);
   }
 }
 
@@ -28,7 +30,8 @@ async function arrayMoneda() {
   arrayModenaValores=[...arrayMonedas]
   return arrayMonedas
   }
-  catch (e){  
+  catch (e){
+    textError.innerHTML='Se produjo un error, en la consola más información';  
     console.log('Se produjo el error : ' + e.message);
  }
 }
@@ -46,14 +49,15 @@ async function cargaSelect(){
 
   return arrayMonedas
   }  
-  catch (e){  
+  catch (e){
+    textError.innerHTML='Se produjo un error, en la consola más información';  
     console.log('Se produjo el error : ' + e.message);
   }
 }
 
 async function datosGrafico(modena){
   try{
-    const url= `https://mindicador.cl/api/${modena}` ;
+    const url= `https://mindicador.cl/api/${modena}vv` ;
     const res = await fetch(url);
     const valorMoneda = await res.json();
     let labels=[];
@@ -75,6 +79,7 @@ async function datosGrafico(modena){
     return { labels, datasets };
   }
   catch (e){  
+    textError.innerHTML='Se produjo un error, en la consola más información';
     console.log('Se produjo el error a leer la API : ' + e.message);
   }
 }
@@ -100,6 +105,8 @@ btnConvertir.addEventListener("click", () => {
   const selectMonedaName=document.getElementById('selectMoneda')
   const selectMonedaText = selectMonedaName.options[selectMonedaName.selectedIndex].text;
   const textValor= document.getElementById('textValor');
+ 
+  
   
   const index = arrayModenaValores.findIndex((ele) => ele.moneda == selectMonedaText)
   const codigoMoneda=arrayModenaValores[index].codigo;
