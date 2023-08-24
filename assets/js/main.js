@@ -57,7 +57,7 @@ async function cargaSelect(){
 
 async function datosGrafico(modena){
   try{
-    const url= `https://mindicador.cl/api/${modena}vv` ;
+    const url= `https://mindicador.cl/api/${modena}` ;
     const res = await fetch(url);
     const valorMoneda = await res.json();
     let labels=[];
